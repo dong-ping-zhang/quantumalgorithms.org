@@ -1,6 +1,4 @@
 ---
-
-layout: page
 title: "Selected articles in Quantum Machine Learning"
 comments: true 
 status: todo
@@ -8,10 +6,6 @@ tags: qml, other
 description: "List of selected resources in quantum algorithmics related to data prcessing, quantum machine learning, quantum programming, etc.."
 author:
 - 'Alessandro “Scinawa” Luongo'
-bibliography:
-- 'sample.bib'
-- 'Mendeley.bib'
-
 ---
 
 This is a collection of paper I have found useful in the last years. It is far from complete and you are welcome to suggest new entries here that you think I have missed.
@@ -44,7 +38,7 @@ The idea is to give evidence that QRAM based algorithms can obtain a speedup w.r
 - [Implementing a distance based classifier with a quantum interference circuit]()  `#algo`  
 
 
-- [Quantum machine learning for quantum anomaly detection]() `#algo`  
+- [Quantum machine learning for quantum anomaly detection](https://arxiv.org/abs/1710.07405) `#algo`  
 Here the authors used previous technique to perform anomaly detection. Basically they project the data on the 1-dimensional subspace of the covariance matrix of the data. In this way anomalies are supposed to lie furhter away from the rest of the dataset. 
 
 - [ Quantum machine learning: a classical perspective](https://arxiv.org/pdf/1707.08561.pdf): `#review` `#quantum learning theory` 

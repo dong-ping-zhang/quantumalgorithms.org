@@ -21,31 +21,31 @@ Mathematically, what we are going to see, is how to build the following mapping 
 
 
 Formally, the Theorem is the following:
-#### Theorem: Distances and inner products estimation
+##### Theorem: Distances and inner products estimation
 _Assume that for two matrices $$V \in \mathbb{R}^{n \times d}$$ and $$C \in \mathbb{R}^{k \times d}$$ the following unitaries_ $$\ket{i}\ket{0} \mapsto \ket{i}\ket{v_i}$$, _and_ $$\ket{j}\ket{0} \mapsto \ket{j}\ket{c\_j}$$ _can be performed in time$$T$$and the norms of the vectors are known. For any $$\Delta > 0$$ and $$\epsilon>0$$, there exists a quantum algorithm that  computes:_
-$$\ket{i}\ket{j}\ket{0} \mapsto \ket{i}\ket{j}\ket{\overline{d^2(v\_i,c\_j)}}$$, where 
-$$|\overline{d^{2}(v\_i,c\_j)}-d^{2}(v\_i,c\_j)| \leqslant  \epsilon$$ with probability at least $$ 1-2\Delta$$,
+$$\ket{i}\ket{j}\ket{0} \mapsto \ket{i}\ket{j}\ket{\overline{d^2(v_i,c_j)}}$$, where 
+$$|\overline{d^{2}(v_i,c_j)}-d^{2}(v_i,c_j)| \leqslant  \epsilon$$ with probability at least $$ 1-2\Delta$$,
 or 
 $$\ket{i}\ket{j}\ket{0} \mapsto  \ket{i}\ket{j}\ket{\overline{(v\_i,c\_j)}},$$ where
 $$|\overline{(v_i,c_j)}-(v_i,c_j)| \leqslant  \epsilon$$ _with probability at least_ $$ 1-2\Delta $$
 _in time_ $$\widetilde{O}\left(\frac{ \norm{v_i}\norm{c_j} T \log(1/\Delta)}{ \epsilon}\right)$$.
 
-### Preface and comments..
-Let me spend a couple of words and introduce some Lemmas. First, you have to know that we usually perform the mappings required in the hypotesis of the Theorem using a [QRAM](qram), but any other state preparation procedure will work. We report here the "Median Lemma" used in the {% cite wiebe2014quantum %}, which you I'm sure you are going to re-use *many* times in your algorithms.. 
+#### Tools used in the proof..
+Let me spend a couple of words and introduce some Lemmas. First, you have to know that we usually perform the mappings required in the hypotesis of the Theorem using a [QRAM](qram.html), but any other state preparation procedure will work. We report here the "Median Lemma" used in the {% cite wiebe2014quantum %}, which you I'm sure you are going to re-use *many* times in your algorithms.. 
 
 
-#### Theorem: "Median Lemma" {% cite wiebe2014quantum %}
-_Let$$\mathcal{U}$$be a unitary operation that maps_
-$\mathcal{U}:\ket{0^{\otimes n}}\mapsto \sqrt{a}\ket{x,1}+\sqrt{1-a} \ket{G,0}$$for some$$1/2 < a \le 1$$in time$$T$. 
-_Then there exists a quantum algorithm that, for any$$\Delta>0$$and for any$$1/2<a\_0 \le a$, produces a state$$\ket{\Psi}$$such that$$\|\ket{\Psi}-\ket{0^{\otimes nL}}\ket{x}\|\le \sqrt{2\Delta}$$for some integer$$L$, in time_:
+##### Theorem: "Median Lemma" {% cite wiebe2014quantum %}
+_Let $$\mathcal{U}$$ be a unitary operation that maps_
+_$$\mathcal{U}:\ket{0^{\otimes n}}\mapsto \sqrt{a}\ket{x,1}+\sqrt{1-a} \ket{G,0}$$ for some $$1/2 < a \le 1$$ in time $$T$$_. 
+_Then there exists a quantum algorithm that, for any $$\Delta>0$$ and for any_ $$1/2 < a_0 \le a$$, _produces a state $$\ket{\Psi}$$ such that $$\|\ket{\Psi}-\ket{0^{\otimes nL}}\ket{x}\|\le \sqrt{2\Delta}$$ for some integer $$L$$, in time_:
 $$
 2T\left\lceil\frac{\ln(1/\Delta)}{2\left(|a_0|-\frac{1}{2} \right)^2}\right\rceil.
 $$
 
-Morally, this lemma tells you that you can pump-up the success probability of a unitary (that is already "good", meaning that the success probability should be always bigger than 1/2), to$$1-\delta$. The price for this boost is just a log factor in the cost of producing the state you want. 
+Morally, this lemma tells you that you can pump-up the success probability of a unitary (that is already "good", meaning that the success probability should be always bigger than 1/2), to$$1-\delta$$. The price for this boost is just a log factor in the cost of producing the state you want. 
 
 
-### Proof of "Distances and inner products estimation" Theorem.
+#### Proof of "Distances and inner products estimation" Theorem.
 
 We know show you how to compute a simple unitary to store in the amplitude of a quantum state some information needed to recover the distance. Then we use amplitude estimation to store coherently this information in a register and further process it to extract the distance. 
 
@@ -53,10 +53,10 @@ We know show you how to compute a simple unitary to store in the amplitude of a 
 We start with the initial state:
 $$
 \ket{\phi_{ij}} := \ket{i} \ket{j} \frac{1}{\sqrt{2}}(\ket{0}+	\ket{1})\ket{0}
-$$$
+$$
 
-Then, we query the state preparation oracle (like a [QRAM](qram)) controlled on the third register to perform the mappings 
-$\ket{i}\ket{j}\ket{0}\ket{0} \mapsto \ket{i}\ket{j}\ket{0}\ket{v\_i}$$and$$\ket{i}\ket{j}\ket{1}\ket{0} \mapsto \ket{i}\ket{j}\ket{1}\ket{c\_j}$. 
+Then, we query the state preparation oracle (like a [QRAM](qram.html)) controlled on the third register to perform the mappings 
+$$\ket{i}\ket{j}\ket{0}\ket{0} \mapsto \ket{i}\ket{j}\ket{0}\ket{v_i}$$and$$\ket{i}\ket{j}\ket{1}\ket{0} \mapsto \ket{i}\ket{j}\ket{1}\ket{c_j}$$. 
 The state becomes:
 
 $$
