@@ -6,10 +6,6 @@ tags: qml, tools
 description: A very simple algorithm that uses amplitude estimation to evaluate faster mean and average of a function that we access through an oracle. 
 author:
 - 'Alessandro “Scinawa” Luongo'
-bibliography:
-- 'sample.bib'
-- 'Mendeley.bib'
-
 ---
 
 I  decided to write this post after reading a paper called [Quantum Risk Analysis](https://arxiv.org/abs/1806.06893) {% cite woerner2018quantum %} , by Stefan Woerner and Daniel J. Egger. Here I want to describe just the main technique employed by their algorithm (namely, how to use amplitude estimation to get useful information out of a function). In another post I will add describe more in detail the rest of the paper, which goes into technical details on how to use these techniques for solving a problem related to financial analysts.

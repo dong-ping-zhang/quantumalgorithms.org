@@ -35,6 +35,7 @@ The idea is to give evidence that QRAM based algorithms can obtain a speedup w.r
 
 
 - [Quantum Algorithms for Classification](http://www.youtube.com/watch?v=KTVtMKo3g80) `#video` 
+<br>
 [![Quantum Algorithms for Classification](http://img.youtube.com/vi/KTVtMKo3g80/0.jpg)](http://www.youtube.com/watch?v=KTVtMKo3g80 "Quantum Algorithms for Classification") 
 
 

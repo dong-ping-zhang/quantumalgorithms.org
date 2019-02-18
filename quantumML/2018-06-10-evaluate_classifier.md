@@ -1,7 +1,5 @@
 ---
-id: 1
-layout: page
-chapter: 7 
+
 title: How to evaluate a classifier
 comments: true 
 status: done
@@ -9,9 +7,6 @@ tags: qml, intro
 description: When performing a real data analysis is important to understand how good is our algorithm in solving our problem. Here is a short recap of the most used metrics for classifications.
 author:
 - 'Alessandro “Scinawa” Luongo'
-bibliography:
-- 'sample.bib'
-- 'Mendeley.bib'
 
 ---
 

@@ -6,9 +6,7 @@ tags: qml, algos
 description: This is a version of the perceptron algorithm based on amplitude amplification tecnicques.
 author:
 - 'Alessandro “Scinawa” Luongo'
-bibliography:
-- 'sample.bib'
-- 'Mendeley.bib'
+permalink: perceptron.html
 
 ---
 

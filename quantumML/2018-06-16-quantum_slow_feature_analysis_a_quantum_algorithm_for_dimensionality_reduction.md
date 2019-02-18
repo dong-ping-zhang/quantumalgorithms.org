@@ -1,6 +1,19 @@
+---
 
-The original Slow Feature Analysis (SFA) was originally proposed to
-learn slowly varying features from generic input signals that vary
+title: Quantum Slow Feature Analysis
+comments: true 
+status: done
+tags: qml, algos
+description: Often, the number of feature for a sample is too high, leading to unwanted effects such as the curse of dimensionality. QSFA is is an algorithm for quantum dimensionality reduction. 
+author:
+- 'Alessandro “Scinawa” Luongo'
+
+---
+
+In this page we are going to see a quantum algorithm for dimensionality reduction. 
+It is the quantum analogue of Slow Feature Analysis (SFA), a powerful algorithm which comes from the computational neurosciences, but is also equivalent to the more-known Fisher Linear Discriminant. 
+
+The original SFA was originally proposed to learn slowly varying features from generic input signals that vary
 rapidly over time (P. Berkes 2005; Wiskott Laurenz and Wiskott 1999).
 Computational neurologists observed long time ago that primary sensory
 receptors, like the retinal receptors in an animal’s eye - are sensitive
@@ -67,7 +80,7 @@ $\Lambda$.
 ### Quantum Slow Feature Analysis
 
 
-In {% cite KL18 %} we show how how to do Quantum Slow Fewature Analysis with [QBLAS](qblas) ( i.e.
+In {% cite KL18 %} we show how how to do Quantum Slow Fewature Analysis with [QBLAS](qblas.html) ( i.e.
 a set of quantum algorithm that we can use to perform linear algebraic
 operations).
 

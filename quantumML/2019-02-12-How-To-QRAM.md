@@ -1,7 +1,5 @@
 ---
-id: 1
 layout: page
-chapter: 8 
 title: How to QRAM your classical data in a quantum computer
 comments: true 
 status: done
@@ -9,7 +7,7 @@ tags: qml, tools
 description: "The fastest way to load classical data in a quantum computer is the QRAM: an efficient state preparation tecnique that requires an almost linear time algorithm as preprocessing."
 author:
 - Alessandro Scinawa Luongo
-permalink: kptrees
+permalink: kptrees.html
 ---
 In this post we’re going to build some quantum circuits used to load data in a quantum computer. These circuits are one of the solutions to the more general problem of state preparation: how to we create a quantum state $\ket{\psi(\theta)}$ for an expressive-ehough class of quantum states (eventually parameterized by $\theta$). There many different solutions, which we might see in different posts, but this article focuses on the QRAM. 
 

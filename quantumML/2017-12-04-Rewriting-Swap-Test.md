@@ -6,7 +6,7 @@ tags: qml, exercise
 description: A simple exercice that shows the equivalence between the swap test and a measurement in the Bell's basis.
 author:
 - 'Alessandro “Scinawa” Luongo'
-permalink: rewriting
+permalink: rewriting.html
 ---
 
 
@@ -24,7 +24,7 @@ Hadamard on the first qubit and a CNOT) - the same used to create an EPR
 pair. Here we will work with single qubit register, but the result can
 be extended to register with multiple qubits. Assuming to work with one
 qubit register, let’s recall the original circuit of the swap test:
-![image](/assets/rewriting_swap_test/Fig1.PNG)
+![image](/assets/images/rewriting_swap_test/Fig1.PNG)
 
 The probability of reading $1$ is $ \frac{1 - \braket{a \| b} }{2} $ and
 the probability of reading $0$ is $ \frac{1 + \braket{a \| b} }{2} $.
@@ -39,27 +39,27 @@ $x \oplus 0 = x$. It’s very simple to show that the swap gate can be
 replaced with a series of CNOTs:
 $$\ket{x}\ket{y} \to \ket{x}\ket{x \oplus y} \to \ket{x \oplus (x \oplus y)}\ket{x \oplus y} \to \ket{y}\ket{x}$$
 
-![image](/assets/rewriting_swap_test/Fig2.PNG)
+![image](/assets/images/rewriting_swap_test/Fig2.PNG)
 
 We know that A NOT gate is just a $Z$ gate on another rotation axis. The
 rotation axis can easily be changed by two surrounding Hadamard’s gate.
 
-![image](/assets/rewriting_swap_test/Fig3.PNG)
+![image](/assets/images/rewriting_swap_test/Fig3.PNG)
 
 The CCZ gate is pretty agnostic with respect to the target or control
 qubit, so we can put the $Z$ rotation on any of the control qubit.
 
-![image](/assets/rewriting_swap_test/Fig4.PNG)
+![image](/assets/images/rewriting_swap_test/Fig4.PNG)
 
 In this circuit we note that some of the gates we are applying are
 actually useless for the measurement on the ancilla qubit, and we can
 remove them from the circuit.
 
-![image](/assets/rewriting_swap_test/Fig5.PNG)
+![image](/assets/images/rewriting_swap_test/Fig5.PNG)
 
 Again, we use the equivalence between the $X$ gate $HZH$ gate.
 
-![image](/assets/rewriting_swap_test/Fig6.PNG)
+![image](/assets/images/rewriting_swap_test/Fig6.PNG)
 
 We note that we could remove the ancilla qubit, and measure the other
 two qubits instead. This is possible thanks to the principle of deffered
@@ -69,7 +69,7 @@ and $\ket{b}$. We don’t mind measuring the two qubit since after
 measuring the ancilla qubit we cannot use $\ket{a}$ and $\ket{b}$
 nevertheless. So here we get the final circuit.
 
-![image](/assets/rewriting_swap_test/Fig7.PNG)
+![image](/assets/images/rewriting_swap_test/Fig7.PNG)
 
 This equivalence might be useful when we need to optimize a circuit and
 we have to reduce both the number of gates and the number of ancilla

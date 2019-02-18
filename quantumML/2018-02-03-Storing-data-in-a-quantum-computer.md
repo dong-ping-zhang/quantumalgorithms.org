@@ -1,18 +1,12 @@
 --- 
-id: 1
-layout: page
-chapter: 7 
 title: Storing data in a quantum computer
 comments: true 
-status: todo
+status: done
 tags: qml, intro 
 description: Here we see how we can encode classical data in a quantum computer, and why it is important in quantum machine learning.
 author:
 - 'Alessandro “Scinawa” Luongo'
-bibliography:
-- 'sample.bib'
-- 'Mendeley.bib'
-
+permalink: storing.html
 ---
 
 We are going to see what does it mean to store/represent data on a
@@ -105,13 +99,13 @@ Or, put it another way:
 
 $$\frac{1}{\sqrt{\sum_{i,j=0}^n,d {\left \lVert X_{ij} \right \rVert}^2}} \sum_{i,j} X_{ij}\ket{i}\ket{j}$$
 
-This state is built using a [QRAM](qram). A QRAM gives us access to two things: the norm of
+This state is built using a [QRAM](qram.html). A QRAM gives us access to two things: the norm of
 the rows of a matrix and the rows itself. Calling the two oracles
 combined, we can do the following mapping:
 
 $$\sum_{i=0}^{n} \ket{i} \ket{0} \to  \sum_{i=0}^n {\left \lVert  x(i)  \right \rVert}\ket{i}\ket{x(i)}$$
 
-Many example of this encoding can be found in literature, like [QSFA](QSFA) and [many](https://arxiv.org/abs/1811.03975) [others]().
+Many example of this encoding can be found in literature, like [QSFA](qsfa.html) and [many](https://arxiv.org/abs/1811.03975) others.
 
 Graphs
 ======

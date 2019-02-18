@@ -6,11 +6,11 @@ tags: qml, algos
 description: A simple classifier inspired by Nearest Centroid but based on square distances. 
 author:
 - 'Alessandro “Scinawa” Luongo'
-permalink: qfdc
+permalink: qfdc.html
 ---
 
 
-Yesterday night there was the TQC dinner in Sydney, and I had the change to speak with Maria, a very prolific author in QML. While speaking about her work on [distance based classification](https://arxiv.org/abs/1703.10793), which is [further analyzed here](https://arxiv.org/abs/1803.00853), she said that one of the purposes of the paper was to show that an Hadamard gate is enough to perform classification, and you don't need very complex circuit to exploit quantum mechanics in machine learning. These was exaclty our motivation behind our QFDC classifier as well, so here we are with a little descrption of QFDC! This text is taken straight outta [my paper](https://arxiv.org/abs/1805.08837).
+Yesterday night there was the TQC dinner in Sydney, and I had the change to speak with Maria, a very prolific author in QML. While speaking about her work on [distance based classification](https://arxiv.org/abs/1703.10793), which is [further analyzed here](https://arxiv.org/abs/1803.00853), she said that one of the purposes of the paper was to show that an Hadamard gate is enough to perform classification, and you don't need very complex circuit to exploit quantum mechanics in machine learning. These was exaclty our motivation behind our QFDC classifier as well, so here we are with a little descrption of QFDC! This text is taken straight outta [our  paper](https://arxiv.org/abs/1805.08837).
 
 As usual, I assume data is stored in a QRAM. We are in the settings of supervised learning, so we have some labeled samples $x(i)$ in $\mathbb{R}^d$ for K different labels. Let $X_k$ be defined as the matrix whose rows are those vectors, and therefore have $K$ of those matrices. 
 $|T_k|$ is the number of elements in the cluster (so the number of rows in each matrix). 

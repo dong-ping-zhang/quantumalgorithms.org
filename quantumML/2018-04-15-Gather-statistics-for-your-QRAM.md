@@ -5,7 +5,7 @@ status: done
 tags: qml, tools
 author:
 - 'Alessandro “Scinawa” Luongo'
-permalink: qramutils
+permalink: qramutils.html
 description: "A small library to estimate the parameters of the runtime of QRAM based algorithms"
 
 ---

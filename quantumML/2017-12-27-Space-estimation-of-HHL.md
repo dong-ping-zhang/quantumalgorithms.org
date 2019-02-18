@@ -1,7 +1,4 @@
 --- 
-id: 2
-layout: page 
-chapter: 7
 title: Space estimation for HHL
 comments: true 
 description: "Let's suppose you are given a perfect quantum computer with $n$ qubits, i.e. a quantum computer with no errors. How big is the linear system I can hope I can solve using the HHL algorithm"
@@ -9,9 +6,6 @@ status: workinprogress
 tags: qml, other 
 author:
 - 'Alessandro “Scinawa” Luongo'
-bibliography:
-- 'sample.bib'
-- 'Mendeley.bib'
 ---
 
 Let’s imagine that we are given a quantum computer with 100 logical

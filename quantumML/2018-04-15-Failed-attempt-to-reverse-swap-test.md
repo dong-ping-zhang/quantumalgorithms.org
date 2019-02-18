@@ -1,14 +1,11 @@
 ---
-id: 8
-layout: page
-chapter: 7
 title: Trying to reverse the swap test
 description: Do you think you can rewerse the swap test and recover the initial state?
 comments: true
 tags: qml, exercise
 author:
 - Alessandro Scinawa Luongo
-permalink: failed
+permalink: failed.html
 
 ---
 

@@ -7,10 +7,7 @@ tags: qml, algos
 description: The (first) algorithm for inverting a matrix and solving linear system of equation. 
 author:
 - 'Alessandro “Scinawa” Luongo'
-bibliography:
-- 'sample.bib'
-- 'Mendeley.bib'
-
+permalink: hhl.html
 ---
 
 

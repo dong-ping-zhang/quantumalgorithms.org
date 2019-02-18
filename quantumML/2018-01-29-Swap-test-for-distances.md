@@ -1,17 +1,11 @@
 --- 
-id: 2
-layout: page
-chapter: 1 
 comments: true 
 tags: qml, tools
 title: Swap test for distances and Nearest Centroids
 description: Here we see how to use the swap test to calculate distances and inner products betewen vectors in our dataset. The same algorithm can use superposition to perform Nearest Centroid, a very simple classical machine learning algorithm. 
 author:
 - 'Alessandro “Scinawa” Luongo'
-bibliography:
-- 'sample.bib'
-- 'Mendeley.bib'
-permalink: swapdistances
+permalink: swapdistances.html
 ---
 
 Introduction to the swap test
@@ -106,7 +100,7 @@ necessary number of times the swap circuit in order to estimate the probability 
 
 We first start by creating
 $$|\psi \rangle = \frac{1}{\sqrt{2}} \Big( \ket{0}\ket{u} + \ket{1}\ket{v} \Big)$$
-querying the [QRAM](qram) in $O(log(N))$ time, where N is the dimension of the
+querying the [QRAM](qram.html) in $O(log(N))$ time, where N is the dimension of the
 Hilbert space (the length of the vector of the data). Then we proceed by creating
 $$|\phi\rangle \frac{1}{\sqrt{Z}} \Big( |\vec{v}||0\rangle + |\vec{u}||1\rangle \Big) $$
 and and estimate $Z=|\vec{u}|^2 +  |\vec{v_j}|^2$. Remember that for two
@@ -118,7 +112,7 @@ don’t want that.
 
 To create $\ket{\phi}$ and estimate $Z$, we have to start with another,
 simpler-to-build $\ket{\phi^-}$ and make it evolve to $\ket{\phi}$. To
-do so, we perform an [Hamiltonian simulation](hamsim) to apply the following time dependent Hamiltonian to the initial state $\ket{\phi^-} = \ket{-}\ket{0}$, for a certain amount of time $t$ such that $t|\vec{v}|, t|\vec{u}| << 1$:
+do so, we perform an [Hamiltonian simulation](hamsim.html) to apply the following time dependent Hamiltonian to the initial state $\ket{\phi^-} = \ket{-}\ket{0}$, for a certain amount of time $t$ such that $t|\vec{v}|, t|\vec{u}| << 1$:
 $$H = |\vec{u}|\ket{0}\bra{0}+|\vec{v}|\ket{1}\bra{1} \otimes \sigma_x$$
 
 
@@ -146,7 +140,7 @@ and distance between two quantum vectors. We have assumed that we have
 an efficient way of creating the states we are using, and we didn’t went
 deep into explaining how. Thanks to the statistical estimators we have, given a $\epsilon > 0$, we can repeat the previous circuit $O(\epsilon^{-2})$ times to have the desired precision.
 
-This circuit ca be easily extended to perform Nearest Centroid algorithm by using a query in superposition. As you may have thought it is very simple with a classical computer to calculate the distance between two vectors. By quering the QRAMs in superposition we can estimate how to calculate the distance between a vector and the center of a cluster. Classically, this would take linear time  in the number of elements, while with the quantum computer is exponentially faster. Note that there is also an exponential improvement in the number of qubits we use to store the state: classically we would use $O(dm)$ bits to store a vector $\in \mathbb{R}^d$ of length $d$ with $m$ bits of precisions. Quanumly, we can use only $\log d$ qubits with a [fidelity]() proportional to $m$.  Further on, we can use use amplitude estimation in order to reduce the dependency on error to $O(\epsilon^{-1})$.
+This circuit ca be easily extended to perform Nearest Centroid algorithm by using a query in superposition. As you may have thought it is very simple with a classical computer to calculate the distance between two vectors. By quering the QRAMs in superposition we can estimate how to calculate the distance between a vector and the center of a cluster. Classically, this would take linear time  in the number of elements, while with the quantum computer is exponentially faster. Note that there is also an exponential improvement in the number of qubits we use to store the state: classically we would use $O(dm)$ bits to store a vector $\in \mathbb{R}^d$ of length $d$ with $m$ bits of precisions. Quanumly, we can use only $\log d$ qubits with a [fidelity](tracedistance.html) proportional to $m$.  Further on, we can use use amplitude estimation in order to reduce the dependency on error to $O(\epsilon^{-1})$.
 
 
 Calculations

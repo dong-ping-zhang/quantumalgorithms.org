@@ -1,7 +1,4 @@
 ---
-id: 1
-layout: page
-chapter: 7 
 comments: true 
 status: done
 tags: qml, tools
@@ -12,7 +9,7 @@ author:
 bibliography:
 - 'sample.bib'
 - 'Mendeley.bib'
-permalink: hamsim
+permalink: hamsim.html
 ---
 
 These are my notes are on Childs' [Lecture notes](https://www.cs.umd.edu/~amchilds/qa/) {% cite ChildsLectureNotes %}, Section 5
