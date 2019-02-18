@@ -13,6 +13,23 @@ layout: none
       {%- include scripts/lib/lazyload.js -%}
     </script>
     {%- include scripts/variables.html -%}
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  CommonHTML : {scale:130 },
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+  TeX: {
+    Macros: {
+      bra: ["{\\langle #1 |}", 1],
+      ket: ["{| #1 \\rangle }",1],
+      braket: ['{\\langle #1 \\rangle }', 1],
+      norm: ["\\left\\lVert #1 \\right\\rVert", 1] 
+}
+ }
+
+
+});
+</script>
+
   </head>
   <body>
     <div class="root" data-is-touch="false">

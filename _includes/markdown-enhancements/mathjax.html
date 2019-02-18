@@ -6,12 +6,30 @@
 {%- assign _mathjax_autoNumber = __return -%}
 
 <script type="text/x-mathjax-config">
-	var _config = { tex2jax: {
-		inlineMath: [['$','$'], ['\\(','\\)']]
-	}};
+var _config = {
+	CommonHTML: {
+		scale: 100
+	},
+	tex2jax: {
+		inlineMath: [
+			['$', '$'],
+			['\\(', '\\)']
+		]
+	},
+	TeX: {
+		Macros: {
+			bra: ["{\\langle #1 |}", 1],
+			ket: ["{| #1 \\rangle }", 1],
+			braket: ['{\\langle #1 \\rangle }', 1],
+			norm: ["\\left\\lVert #1 \\right\\rVert", 1]
+		}
+	}
+};
 	{%- if _mathjax_autoNumber == true -%}
 		_config.TeX = { equationNumbers: { autoNumber: "all" } };
 	{%- endif -%}
 	MathJax.Hub.Config(_config);
 </script>
+
 <script type="text/javascript" src="{{ _sources.mathjax }}" async></script>
+
