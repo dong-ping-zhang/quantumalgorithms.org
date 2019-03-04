@@ -9,22 +9,24 @@ author:
 - Alessandro Scinawa Luongo
 permalink: kptrees.html
 ---
-In this post we’re going to build some quantum circuits used to load data in a quantum computer. These circuits are one of the solutions to the more general problem of state preparation: how to we create a quantum state $\ket{\psi(\theta)}$ for an expressive-ehough class of quantum states (eventually parameterized by $\theta$). There many different solutions, which we might see in different posts, but this article focuses on the QRAM. 
+In this post we’re going to build some quantum circuits to load data in a quantum computer. These circuits are one of multiple solutions to the more general problem of state preparation: how to create a quantum state $\ket{\psi(\theta)}$ for an expressive-enough class of quantum states (eventually parameterized by $\theta$). This article focuses on QRAM. There are other solutions that we might cover in future posts.  
 
 
-This post is organized as such: first we well'see the theory behind the QRAM, stating the theorem that you can use to build you own quantum algorithms. Then we will see *in practice* how to build some circuits which give you deeper insight what the QRAM is. Then, we will address some issues and conclusions.
+This post is organized as such: first we talk about the theory behind the QRAM, stating the theorem that you can use to build you own quantum algorithms. Then we will explain *in practice* how to build some circuits that give you deeper insight what the QRAM is. Finally, we will address some further issues and conclude.
 
-While talking to people at the conferences, I realized that QRAM is a word used to point to two different concepts. Originally, it was used to describe the oracle an oracle that loads in memory $n$ different values as *digital* encoding of $m$ bits (i.e. you create a tensor of $m$ qubits to store the a scalar value). Others also use the term for a circuits with loads the data with *amplitude encoding*. As András Gilyén puts it: "if you add a *q* in front of it, should be the quantum version of the classical thing". As the classical RAM works by returning a list of bits, I'd stick with the idea of using QRAM for the original meaning and call the other **KP-trees**, or **QRAM-amplitudes**. The ambiguity is reinforced by the fact that KP-trees internally uses the QRAM. So sometimes is is common to use QRAM to describe both of the circuit.
+/* dpz: The following paragraph needs clarification. TBD */ 
+
+While talking to people at the conferences, we realized that QRAM is a word used to refer to two different concepts. Originally, it was used to describe an oracle that loads in memory $n$ different values as *digital* encoding of $m$ bits (i.e. you create a tensor of $m$ qubits to store a scalar value). Others also use the term for a circuits which loads the data with *amplitude encoding*. As András Gilyén puts it: "if you add a *q* in front of it, should be the quantum version of the classical thing". As the classical RAM works by returning a list of bits, I'd stick with the idea of using QRAM for the original meaning and call the other **KP-trees**, or **QRAM-amplitudes**. Further ambiguity is introduced by the fact that KP-trees internally uses the QRAM. So sometimes people use QRAM to describe both of the circuit.
 
 
-You can think of KP-trees in two ways. First as a unitary that you can execute in a quantum computer, or as a particular data structure that you can use to store your data, when your data is represented by a matrix. Imagine you have a list of $n$ vectors of dimension $d$ that represents data points of your training set, and you want to load them a quantum computer. The KP circuit, albeit being $O(nd)$ size (it is a faithful representation of the matrix), is of polylogarithmic depth in $n$ and $d$. This means a sublinear runtime when executed. Formally, for a given vector $x(i) \in \mathbb{R}^d$ and $i \in [n]$, we can use the KP-trees to build the following state:
+You can think of KP-trees in two ways. First as a unitary that you can execute in a quantum computer, or as a particular data structure that you can use to store your data when your data is represented by a matrix. Imagine that your training data set is a list of $n$ vectors of dimension $d$, and you want to load them onto a quantum computer. The KP circuit, albeit being $O(nd)$ size (it is a faithful representation of the matrix), is of polylogarithmic depth in $n$ and $d$. This means a sublinear runtime when executed. Formally, for a given vector $x(i) \in \mathbb{R}^d$ and $i \in [n]$, we can use the KP-trees to build the following state:
 
 $$ U_{KP}: \frac{1}{\sqrt{n}} \sum_{i\in [n]} \ket{i}\ket{0} \mapsto \frac{1}{\sqrt{\sum_{i \in [n]} \norm{x_i}^2}} \sum_{i=0}^{n} \norm{x_i}\ket{i}\ket{x(i)} $$
 
-Let's take a look at this iconic quantum state. Mathematically, this state is just a very long vector of $nd$ length (advantageously padded to make $n$ and $d$ powers of two). You can imagine it by piling all the *normalized* rows of $X$ one after the other such that the final result has unitary norm. Then, each of the element in the tensor is weighted by the norm of the row, and the final state is again normalized to have unit $\ell_2$. Put it nother way, each of the $\ket{x(i)}$ in the second register is a unitary vector, as $\ket{x(i)} = \norm{x(i)}^{-1}\vec{x}(i)$, and each of them is weighted by their norm ($\norm{x_i}$). You might wonder if you need the first register in the output of the KP-circuit, or if you can get rid of it. Well, it turns out it is actually very useful, as you will see in the next algorithms. 
-In some sense, this state is not difficult to build per-se. The difficult thing is that we want to built it with a circuit whose depth is polylogarithmic in $n$ and $d$.
+Let's take a look at this iconic quantum state. Mathematically, this state is just a very long vector of $nd$ length (advantageously padded to make $n$ and $d$ powers of two). You can imagine it by piling all the *normalized* rows of $X$ one after the other such that the final result has unitary norm. Then, each of the element in the tensor is weighted by the norm of the row, and the final state is again normalized to have unit $\ell_2$. In other words, each of the $\ket{x(i)}$ in the second register is a unitary vector, as $\ket{x(i)} = \norm{x(i)}^{-1}\vec{x}(i)$, and each of them is weighted by their norm ($\norm{x_i}$). You might wonder if you need the first register in the output of the KP-circuit, or if you can get rid of it. Well, it turns out it is actually very useful, as you will see in our other articles of quantum algorithms. 
+In some sense, this state is not difficult to build. The challenge is that we want to built it with a circuit whose depth is polylogarithmic in $n$ and $d$.
 
-Mathematically, the idea behind the KP-trees is rooted in an observation described in  {% cite Grover2002creating %}, which in just two pages of paper said gave an efficient algorithm for the *state preparation problem*: the problem of finding a circuit that builds a given quantum state. Precisely, for a state proportional to square integrable probability didstribution. Indeed, _by precomputing the partial amplitudes_, it is possible to perform only a logarithmic number of controlled operations. Later or we will use this intuition, since luckly, a data vector in $\mathbb{R}^d$ (i.e. like most of the classical data that we use in ML) can be though is an efficiently square integrable distribution.
+Mathematically, the idea behind the KP-trees is rooted in an observation described in  {% cite Grover2002creating %}, which in just two pages gives an efficient algorithm for the *state preparation problem*: the problem of finding a circuit that builds a given quantum state. Precisely, for a state proportional to square integrable probability didstribution. Indeed, _by precomputing the partial amplitudes_, it is possible to perform only a logarithmic number of controlled operations. Later on we will use this intuition, since luckily, a data vector in $\mathbb{R}^d$ (i.e. like most of the classical data that we use in ML) can be thought as an efficient square integrable distribution.
 
 Imagine we have received a set of classical data in form of a matrix of $n$ rows (samples) and $d$ columns (features). The KP-trees for a matrix $X$ is a collection of binary trees $B_i$ of depth $\log d$, where each tree has stored the information needed to create a state corresponding to each row of the matrix. Your quantum circuit will perform "parallel" controlled rotation on $\log d$ qubits efficiently. 
 
@@ -44,7 +46,7 @@ _Let_ $X \in \mathbb{R}^{N \times d}$. _There exists a data structure to store t
 - _A quantum algorithm that has quantum access to the data structure can perform the mapping 
 $U\_X: \ket{i}\ket{0} \to \ket{i}\ket{x(i)} $ and the mapping $V\_X : \ket{j}\ket{0} \to \ket{j}\ket{\widehat{X}}$ for $j \in [d]$ where $\widehat{X} \in \mathbb{R}^n$ has entries $\widehat{X}_i = \norm{x(i)}$ in time $polylog(nd)$_
 
-The proof consist of builing the following *binary* tree, which is ought to be done as a pre-processing phase of the data before the execution. This can be done upon the reception of the data, or while building the quantum circuit before the execution. Here, you will mostly find what is written in {% cite kerenidis2016recommendation %}.
+The proof consist of building the following *binary* tree, which is performed as a pre-processing phase of the data before the execution. This can be done upon receiving the data, or while building the quantum circuit before the execution. Here, you will mostly find what is written in {% cite kerenidis2016recommendation %}.
 
 I call $x(i)$ a row of the matrix $X$ and I address each of the elements as $x_{ij}$. For each row $x(i) \in X$ we build a  binary tree $B_i$ of depth $\lceil \log d\rceil$ with $d$ leaves. Each internal node $v$ of the tree stores the sum of the entries of all the leaves of the subtree rooted at $v$, that is, the sum of the 2 childrens. The leaf of each tree $B\_i$ stores the value $x_{ij}^2$, along with the sign of $x_{ij}$. Organized as such, you can easily verify that the root of the tree stores $\norm{x(i)}^2$. 
 
@@ -53,23 +55,23 @@ Each layer of the tree is stored in a bucket-brigade QRAM. To create this data s
 We need to measure the time and the space needed to *build* and *store* this data structure. 
 The *time* needed to build a binary tree for a vector of length $d$ is $O(d \log^2 nd)$ because for each of the $d$ component of the vector, there are $\lceil log d \rceil$ updates to the data structure (given by the creation of a new leave and the updates on the internal nodes of the tree), and each update requires $O(\log nd)$ operations to retrieve the address of the node to update (you can imagine you are using dictionary, which still needs to be able to read all of the $\log nd$ bits to address $nd$ values.).
 
-For what concern the *space*, given that we have to store $n$ vectors, the space used to store the matrix $X$ is therefore $O(nd\\: log^2 nd)$: there are $n$ vectors and each vector will create $O(d \log(d))$ nodes, and each node use $O(\log nd)$ bits. 
+On *space* complexity, given that we have to store $n$ vectors, the space used to store the matrix $X$ is therefore $O(nd\\: log^2 nd)$: there are $n$ vectors and each vector creates $O(d \log(d))$ nodes, and each node uses $O(\log nd)$ bits. 
 
 The time needed to store the whole matrix is $O(nd\\: log^2(nd))$. 
 
-Note also that in these calculations I factor out all the observation on the bits of precision used to store each value $x_{ij}$. This somehow is related to the precision we want to achieve, and the precision allowed by the technology, i.e. how precisely we can control quantum gates?
+Note also that in these calculations we factor out all the observation on the bits of precision used to store each value $x_{ij}$. This somehow is related to the precision we want to achieve, and the precision allowed by the technology, i.e. how precisely can we control quantum gates?
 
-You can observe yourself that the process of summing the amplitudes in a tree recalls vaguely the idea of Grover we mentioned before. Indeed we are just storing all the partial amplitudes in a tree.
+You might observe that the process of summing the amplitudes in a tree is similarly to the idea of Grover we mentioned before. Indeed we are just storing all the partial amplitudes in a tree.
 
-Now we are going to show how to use quantum access of this data structure to load our data. Observe that for a tree $B_i$, at depth $t$ the data stored in a node
+Now we are going to show how to use quantum access of this data structure to load the data. Observe that for a tree $B_i$, at depth $t$ the data stored in a node
 $k \in \\{0,1\\}^t$ is stored:
 
 $$B_{i,k} := \sum_{j \in [n], j_{1:t}=k} x^2_{ij}$$
 
-In this formula with $j_{1:t}=k$ we denote the first $t$ bits in the binary expansion of $j \in \left[ d \right]$. This value represent the probability of observing outcome $k$ by reading only the first $t$  qubits of $\ket{x(i)}$ in the standard basis. This observation will be used to perform a series of controlled rotations on the data registe (i.e. the set of qubits storing the vector $x(i)$. Let's see how. 
+In this formula with $j_{1:t}=k$ we denote the first $t$ bits in the binary expansion of $j \in \left[ d \right]$. This value represent the probability of observing outcome $k$ by reading only the first $t$  qubits of $\ket{x(i)}$ in the standard basis. This observation will be used to perform a series of controlled rotations on the data register (i.e. the set of qubits storing the vector $x(i)$). Let's see how. 
 
 
-Now we will show how to use quantum access to the various layer of the trees to build a state $\ket{x(i)}$, using only polylog($nd$) operations. This means that we are allowd to query the layers of each of the trees in superposition. Given an initially empty register $\ket{0}$ of $\lceil log d \rceil$ qubits, we perform a series of rotation such that the amplitudes of the state of the register match the probability stored in the KP-trees. Specifically, we apply the following map:
+Now we will show how to use quantum access to the various layer of the trees to build a state $\ket{x(i)}$, using only polylog($nd$) operations. This means that we are allowed to query the layers of each of the trees in superposition. Given an initially empty register $\ket{0}$ of $\lceil log d \rceil$ qubits, we perform a series of rotation such that the amplitudes of the state of the register match the probability stored in the KP-trees. Specifically, we apply the following map:
 
 $$\ket{i}\ket{k}\ket{0} \to \ket{i}\ket{k}\frac{1}{\sqrt{B_{i,k}}} \Big(\sqrt{B_{i,k0}}\ket{0} + \sqrt{B_{i,k1}}\ket{1}  \Big)$$
 
@@ -78,7 +80,7 @@ It can be done by first querying a bucket-brigade like data structure for
 
 $$\ket{i}\ket{k}\ket{0}\to\ket{i}\ket{k}\ket{\theta_{ik}}$$
 
-Here, $\theta_{ik}$ is $arcsin(\frac{\sqrt{B\_{ik0}}}{\sqrt{B\_{ik}}})$, or equivalently $arccos(\frac{\sqrt{B\_{ik1}}}{\sqrt{B\_{ik}}})$. We want to use this information to perform a controlled rotation $R(\theta)$ on the $t$-th qubit of the data register. We can use each of the qubits of $\ket{\theta_m}$ to as control register for the rotation on each of the qubit of the data register.  In quskit, this is exactly the gate cu1. (albeit extended to control many qubits). In practice, it will be something along these lines
+Here, $\theta_{ik}$ is $arcsin(\frac{\sqrt{B\_{ik0}}}{\sqrt{B\_{ik}}})$, or equivalently $arccos(\frac{\sqrt{B\_{ik1}}}{\sqrt{B\_{ik}}})$. We want to use this information to perform a controlled rotation $R(\theta)$ on the $t$-th qubit of the data register. We can use each of the qubits of $\ket{\theta_m}$ as control register for the rotation on each of the qubit of the data register.  In quskit, this is exactly the gate cu1, albeit extended to control many qubits. In practice, it will be something along this line:
 
 ~~~
 circ.cu1(math.pi theta_m/float(2 **m), q_reg[i], target_qubit)
@@ -86,16 +88,16 @@ circ.cu1(math.pi theta_m/float(2 **m), q_reg[i], target_qubit)
 {: .language-python}
 
 
-For the last qubit, the controlled rotations takes into consideration the eventual sign:
+For the last qubit, the controlled rotation takes into consideration the eventual sign:
 
 $$\ket{i}\ket{k}\ket{0} \to \ket{i}\ket{k}\frac{1}{\sqrt{B_{i,j}}} \Big(sgn(a_{i,k0})\sqrt{B_{i,k0}}\ket{0} + sgn(a_{i,k0})\sqrt{B_{i,k1}}\ket{1}  \Big)$$
 
 Obviously, the number of controlled rotation to apply is $\lceil log d \rceil$. The operation for the qubit $t+1$, is controlled on the index register $\ket{i}$ and on the previous $t$ bits of the register being on state $k$. For each controlled operation there are 2 query to the binary tree: once for each children.
 
-Finally, we show how to build $V\_X$. This procedure is analogue to the creation of a binary trees $B\_i$, for the rows, except that instead of saving the square of the amplitude we just need to save the square of the norm of the vectors. This is a no-brainer for us, since the norm of the vector is stored in the root node of $B\_i$. The $i$-th component of the $\widehat{X}$ is 
-$||x(i)||^2$. Thus, when creating $B\_i$ we also update the tree for the oracle $V_X$. Querying the oracle $V_X$ can be done in polylog($Nd$) time as well, let's see how.
+Finally, we show how to build $V\_X$. This procedure is analogous to the creation of a binary trees $B\_i$, for the rows, except that instead of saving the square of the amplitude we just need to save the square of the norm of the vectors. This is a no-brainer for us, since the norm of the vector is stored in the root node of $B\_i$. The $i$-th component of the $\widehat{X}$ is 
+$||x(i)||^2$. Thus, when creating $B\_i$ we also update the tree for the oracle $V_X$. Querying the oracle $V_X$ can be done in polylog($Nd$) time as well.
 
-This can conclude the proof of the previous theorem. What is much more interesting to see, is the actual way to build the circuit for the query to the nodes of the trees.
+This concludes the proof of the previous theorem. What remains much more interesting is the actual way to build the circuit for the query to the nodes of the trees.
 
 ##  Some circuits for the QRAM and the oracles
 
