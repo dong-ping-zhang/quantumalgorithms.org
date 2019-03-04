@@ -6,6 +6,7 @@ tags: qml, intro
 description: Here we see how we can encode classical data in a quantum computer, and why it is important in quantum machine learning.
 author:
 - 'Alessandro “Scinawa” Luongo'
+- 'Dong Ping Zhang'
 permalink: storing.html
 ---
 
