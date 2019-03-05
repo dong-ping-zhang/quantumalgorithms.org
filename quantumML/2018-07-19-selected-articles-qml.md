@@ -11,7 +11,15 @@ author:
 This is a collection of paper I have found useful in the last years. It is far from complete and you are welcome to suggest new entries here that you think I have missed.
 I don't claim for completeness though. 
 
+#### 2019
+- [Quantum Language Processing](https://arxiv.org/pdf/1902.05162.pdf) `#NLP`
+
+- 
+
 #### 2018
+
+- [Optimizing quantum optimization algorithmsvia faster quantum gradient computation](https://arxiv.org/pdf/1711.00465.pdf) `#algo`
+
 - [Quantum Statistical Inference](https://arxiv.org/pdf/1812.04877.pdf) `#phdthesis, #algo`  
 The PhD thesis of Zhao! With focus on Gaussian Processes, Quantum Bayesian Deep Learning (and other resources about causality and correlations..).
 
