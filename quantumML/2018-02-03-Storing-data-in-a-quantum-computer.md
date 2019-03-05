@@ -19,8 +19,6 @@ As a convention, we often use Greek letters inside kets to represent generically
 The first is called the index register, and the second is the target register, which after the query to a certain oracle is storing the information you want. 
 Fundamentally, there are just two ways of encoding the information: the amplitude encoding and the binary encoding. In amplitude encoding you store your data in the amplitudes of a quantum state, therefore you can encode $n$ real values (up to some digits of precisions) using $\log n$ qubits. In the binary or digital encoding you store a bit in each qubit. You'll need to chose the appropriate strategy to process the data for each of chosen encoding. 
 
-/* dpz: the following sentence does not make sense */
-Let’s organise what we know how to do by data types.
 
 Scalars: $\mathbb{Z}$, $\mathbb{Q}$, $\mathbb{R}$
 -------------------------------------------------------
@@ -38,16 +36,10 @@ Using superposition of states like these we might create things like
 $\frac{1}{\sqrt{2}} (\ket{5}+\ket{9})$ or more involved convex
 combination of states. If we need to store negative integers, we could use one extra qubit for the sign, and invent some other tricks.
 
-/* dpz: the following paragraph does not make sense*/
-In quantum machine learning, or more broadly quantum algorithms, there are often registers storing n-bits approximation of real numbers. These numbers often vary between $0$ and $1$, and might come to procedures like phase estimation or amplitude amplification or other algorithms. This is very convinient, because it avoid problems handling signs, (floating) points operation and so on.
-
+When programming quantum machine learning algorithms, it is common to use subroutines to perform arithmetics on real numbers. The numbers might come from other quantum procedures (like phase estimation or amplitude amplification) or might come directly from the memory (i.e.  like the norm of a vector). These numbers are simply encoded as m-bit binary expansion.
 
 This encoding can be used to get speedup in the number of query to
-an oracle, like in {% cite kapoor2016quantum %}. There, the authors encoded a real value representing each of the feature of a machine learning dataset with this encoding.
-
-/* dpz: what is oracle complexity */
-
-In general, you can easily use it if you aim at getting a speedup in oracle complexity using amplitude amplification and similar, or in an intermediate step of your algorithm where you want to perform arithmetics on some values.
+an oracle, like in {% cite kapoor2016quantum %}. There, the authors encoded a real value representing each of the feature of a machine learning dataset with this encoding. In general, you can easily use this encoding if you aim at getting a speedup in oracle complexity using amplitude amplification and similar techniques, or in an intermediate step of your algorithm where you want to perform arithmetics on some values. Oracle complexity is a measure of the complexity of an algorithm that counts the number of times a given oracle $O$ (a unitary in the quantum computer) is called. 
 
 
 Binary vectors: $\\{0,1\\}^n$
@@ -72,11 +64,9 @@ $1$ and $1$ as $-1$, and build:
 
 $$\ket{v} = \frac{1} {\sqrt{2^n}} \sum_{i \in \{0,1\}^n} (-1)^{b_i} \ket{i}$$.
 
-/* dpz: why does this make more sense. A brief explanation is needed here.*/
-Our third possible encoding makes a little bit more sense:
+Or analogously: 
 
 $$\ket{b} = \frac{1}{\sqrt{\sum_{i=0}^n}1} \sum_{i=0}^n b_i\ket{i} $$
-
 
 
 Vectors and Matrices: $\mathbb{R}^n$, $\mathbb{R}^{n \times d}$
@@ -102,10 +92,9 @@ Or, put it another way:
 
 $$\frac{1}{\sqrt{\sum_{i,j=0}^n,d {\left \lVert X_{ij} \right \rVert}^2}} \sum_{i,j} X_{ij}\ket{i}\ket{j}$$
 
-/* dpz: need to verify the following paragraph. (1): do you mean the norm of each row of the matrix? (2) what are the two oracles? */
-This state is built using a [QRAM](qram.html). A QRAM gives us access to two things: the norm of
-the rows of a matrix and the rows itself. Calling the two oracles
-combined, we can do the following mapping:
+
+This state is built using a [QRAM](qram.html). A QRAM gives us quantum access to two things: the norm of
+the rows of a matrix and the rows itself. Formally, we assume to have access to $\ket{i}\mapsto \ket{i}\ket{x(i)} and $\ket{i} \mapsto \ket{i}\ket{\norm{x(i)}}$. Using these unitaries, we can do the following mapping:
 
 $$\sum_{i=0}^{n} \ket{i} \ket{0} \to  \sum_{i=0}^n {\left \lVert  x(i)  \right \rVert}\ket{i}\ket{x(i)}$$
 
@@ -114,17 +103,14 @@ Many example of this encoding can be found in literature, like [QSFA](qsfa.html)
 Graphs
 ======
 
-/* dpz: (1) what is X_y? (2): add reference*/
-
 For some kind of problems we can even change the computational model (i.e.
-we can switch from the gate model to something else). For instance,
-given a graph $G=(V,E)$ we can encode it as a state $\ket{G}$ such that:
+we can switch from the gate model to something else). For instance, a graph $G=(V,E)$ be encoded as a quantum state $\ket{G}$ such that:
 $$K_G^V\ket{G} = \ket{G} \forall v \in V$$ where
-$K_G^v = X_y\prod_{u \in N}(v)Z_u $, and $X_u$ and $Z_u$ are the Pauli
+$K_G^v = X_v\prod_{u \in N(v)}Z_u $, and $X_u$ and $Z_u$ are the Pauli
 operators on $u$. Here is the way of picturing this encoding: Take as many
 qubits in state $\ket{+}$ as nodes in the graph, and apply controlled
 $Z$ rotation between qubits representing adjacent nodes. There are some
-algorithms that use this state as input, for instance in {% cite zhao2016fast %}, where they extended slighly the definition.
+algorithms that use this state as input. For a more detailed description, look at {% cite zhao2016fast %}, which also gives very nice algorithms that might be useful in some graph problem. 
 
 Conclusions
 ===========
