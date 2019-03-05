@@ -2,7 +2,9 @@
 title: A quantum perceptron model
 comments: true 
 status: done
-tags: qml, algos
+tags: 
+- qml-algo
+- algorithm
 description: This is a version of the perceptron algorithm based on amplitude amplification tecnicques.
 author:
 - 'Alessandro “Scinawa” Luongo'

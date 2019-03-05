@@ -2,7 +2,9 @@
 title: "Quantum Frobenius Distance Classifier (QFDC)"
 comments: true 
 status: done
-tags: qml, algos
+tags: 
+- qml-algo
+- algorithm
 description: A simple classifier inspired by Nearest Centroid but based on square distances. 
 author:
 - 'Alessandro “Scinawa” Luongo'
