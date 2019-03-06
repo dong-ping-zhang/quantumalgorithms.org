@@ -1,9 +1,10 @@
 ---
-
 title: Quantum Slow Feature Analysis
 comments: true 
 status: done
-tags: qml, algos
+tags: 
+- qml-algo
+- algorithm
 description: Often, the number of feature for a sample is too high, leading to unwanted effects such as the curse of dimensionality. QSFA is is an algorithm for quantum dimensionality reduction. 
 author:
 - 'Alessandro “Scinawa” Luongo'

@@ -3,7 +3,9 @@ layout: page
 title: The HHL algorithm
 comments: true 
 status: done
-tags: qml, algos
+tags: 
+- qml-algo
+- algorithm
 description: The (first) algorithm for inverting a matrix and solving linear system of equation. 
 author:
 - 'Alessandro “Scinawa” Luongo'

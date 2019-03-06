@@ -5,6 +5,10 @@
   },
   "files.associations": {
     "*.html": "jekyll"
-  }
+  },
+"files.watcherExclude": {
+  "**/.git/objects/**": true,
+  "**/.git/subtree-cache/**": true,
+  "**/_site/**": true
 }
-
+}

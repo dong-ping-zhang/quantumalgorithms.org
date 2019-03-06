@@ -8,7 +8,7 @@ description: When performing a real data analysis is important to understand how
 author:
 - 'Alessandro “Scinawa” Luongo'
 - 'Dong Ping Zhang'
-
+permalink: evaluate
 ---
 
 
